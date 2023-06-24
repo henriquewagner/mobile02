@@ -12,52 +12,60 @@ import { useState } from "react";
 
 import { Participant } from "../components/Participant";
 
+
+
 export function Home() {
   /**
    * Estrutura básica do useSate
    * const [1param, 2param] = useState()
    */
 
-  const [input, setinput] = useState('Henrique (jé é pronome neutre!)')
   const [listParticipant, setListParticipant] = useState(["Fulane"])
+  const [nameParticipant, setNameParticipant] = useState('')
+
 
 
   function handleParticipantAdd(participant) {
-    if (listParticipant.includes(participant)) {
+
+    if (listParticipant.includes(participant.trim())) {
       Alert.alert('Ohhhh.... Mané esse nené, já está na lista!!!')
     } else {
-      setListParticipant((prevState) => [...prevState, participant]);
+      // const str2 = str.charAt(0).toUpperCase() + str.slice(1);
+      setListParticipant((prevState) => [...prevState, participant.charAt(0).toUpperCase() + participant.slice(1)]);
     }
   }
 
   function handleParticipantRemove(participant) {
     Alert.alert("Remover", `Remover o participante ${participant}`, [
       {
-        text: 'Sim',
-        onPress: () => Alert.alert('Eliminado!!')
+        text: 'sim',
+        onPress: () => {
+          setListParticipant(prevState => prevState.filter(participantName => participantName !== participant))
+        }
       }, {
-        text: 'Não',
+        text: 'não',
         onPress: () => Alert.alert('Mudei de Ideia')
       }])
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleEvent}>Aula de Mobile III</Text>
-      <Text style={styles.dateEvent}>Sexta, 16 de junho de 2023</Text>
-      <Text style={styles.dateEvent}>Com Prof° Bruno</Text>
+      <Text style={styles.titleEvent}>Festa Junina</Text>
+      <Text style={styles.dateEvent}>Essa festa tá bãooooo demais sô!</Text>
 
       <View style={styles.form}>
         <TextInput
           style={styles.input}
           placeholder="Nome do participante..."
-          placeholderTextColor={"#6b6b6bc"}
+          placeholderTextColor={"#6b6b6b"}
+          onChangeText={setNameParticipant}
+          value={nameParticipant}
         />
 
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.button}
-          onPress={() => handleParticipantAdd(input)}
+          onPress={() => handleParticipantAdd(nameParticipant)}
         >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
@@ -87,18 +95,20 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#131016",
+    backgroundColor: " #ffff00",
     padding: 24,
   },
   titleEvent: {
     color: "#fdfcfe",
     fontSize: 24,
+    textAlign: "center",
     fontWeight: "bold",
     marginTop: 48,
   },
   dateEvent: {
     color: "#6b6b6b",
     fontSize: 16,
+    textAlign: "center",
   },
   form: {
     width: "100%",
