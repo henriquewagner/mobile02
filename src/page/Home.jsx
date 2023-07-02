@@ -20,7 +20,7 @@ export function Home() {
    * const [1param, 2param] = useState()
    */
 
-  const [listParticipant, setListParticipant] = useState(["Fulane"])
+  const [selected, setSelected] = useState(["Fulane"])
   const [nameParticipant, setNameParticipant] = useState('')
 
 
@@ -38,12 +38,12 @@ export function Home() {
   function handleParticipantRemove(participant) {
     Alert.alert("Remover", `Remover o participante ${participant}`, [
       {
-        text: 'sim',
+        text: 'Com certeza',
         onPress: () => {
           setListParticipant(prevState => prevState.filter(participantName => participantName !== participant))
         }
       }, {
-        text: 'não',
+        text: 'Mas claro que não',
         onPress: () => Alert.alert('Mudei de Ideia')
       }])
   }
@@ -61,7 +61,7 @@ export function Home() {
           onChangeText={setNameParticipant}
           value={nameParticipant}
         />
-
+       
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.button}
@@ -95,7 +95,7 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: " #ffff00",
+    backgroundColor: "#131016",
     padding: 24,
   },
   titleEvent: {
